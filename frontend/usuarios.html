@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+</head>
+<body>
+
+<h2>Gestión de Usuarios</h2>
+
+<button onclick="filtrar('todos')">Todos</button>
+<button onclick="filtrar('admin')">Admins</button>
+<button onclick="filtrar('gestor')">Gestores</button>
+
+<table border="1" id="tablaUsuarios">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script src="Js/api.js"></script>
+<script>
+let usuarios = [];
+
+async function cargarUsuarios() {
+    usuarios = await api(`${API_USERS}/users`, "GET", null, true);
+    mostrarUsuarios(usuarios);
+}
+
+function mostrarUsuarios(lista) {
+    const tbody = document.querySelector("#tablaUsuarios tbody");
+    tbody.innerHTML = "";
+
+    lista.forEach(u => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${u.name}</td>
+                <td>${u.email}</td>
+                <td>${u.role}</td>
+            </tr>
+        `;
+    });
+}
+
+function filtrar(tipo) {
+    if (tipo === "todos") {
+        mostrarUsuarios(usuarios);
+    } else {
+        const filtrados = usuarios.filter(u => u.role === tipo);
+        mostrarUsuarios(filtrados);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", cargarUsuarios);
+</script>
+
+</body>
+</html>

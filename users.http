@@ -29,7 +29,7 @@ Content-Type: application/json
 ########################################
 # ⚠️ TOKEN SE AGREGA AUTOMÁTICAMENTE AQUÍ
 # Reemplázalo después de hacer login
-@token = PON_AQUI_TU_TOKEN
+@token = 01caa196b01ffba6f3df58d2defa3d4a1dd1d7d2a2c9b72e97413bdac25a90fc
 ########################################
 
 ########################################

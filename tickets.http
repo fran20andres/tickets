@@ -1,0 +1,167 @@
+########################################
+#      MICROSERVICIO DE TICKETS
+#  Archivo de pruebas REST (.http)
+# Puerto correcto: 8002
+########################################
+
+
+########################################
+### 1. Crear Ticket (solo Gestores)
+POST http://localhost:8002/tickets
+Authorization: Bearer {{token_gestor}}
+Content-Type: application/json
+
+{
+  "titulo": "Error al cargar archivos",
+  "descripcion": "Los archivos PDF no se cargan correctamente en el módulo de documentos"
+}
+
+########################################
+### 2. Listar Mis Tickets (Gestores)
+GET http://localhost:8002/tickets/my
+Authorization: Bearer {{token_gestor}}
+Content-Type: application/json
+
+
+########################################
+# ⚠️ TOKENS A USAR
+@token_gestor = PON_AQUI_TOKEN_DE_GESTOR
+@token_admin  = PON_AQUI_TOKEN_DE_ADMIN
+########################################
+
+
+########################################
+### 3. Listar Todos los Tickets (Solo Admin)
+GET http://localhost:8002/tickets
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+########################################
+### 4. Buscar / Filtrar Tickets 
+GET http://localhost:8002/tickets/search?estado=abierto
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+########################################
+### 5. Buscar por Gestor
+GET http://localhost:8002/tickets/search?gestor_id=1
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+########################################
+### 6. Buscar por Admin Asignado
+GET http://localhost:8002/tickets/search?admin_id=3
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+########################################
+### 7. Búsqueda con Múltiples Filtros
+GET http://localhost:8002/tickets/search?estado=en_progreso&admin_id=3
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+########################################
+### 8. Actualizar Estado de un Ticket
+# Estados válidos: abierto, en_progreso, resuelto, cerrado
+PUT http://localhost:8002/tickets/1/status
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+{
+  "estado": "en_progreso"
+}
+
+
+########################################
+### 9. Asignar Ticket a un Admin (Solo Admins)
+PUT http://localhost:8002/tickets/1/assign
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+{
+  "admin_id": 3
+}
+
+
+########################################
+### 10. Ver Detalles de un Ticket
+# Gestor: solo sus tickets | Admin: todos
+GET http://localhost:8002/tickets/1
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+########################################
+### 11. Agregar Comentario a un Ticket
+POST http://localhost:8002/tickets/1/comments
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+{
+  "mensaje": "El problema parece ser un error de permisos en el servidor"
+}
+
+
+########################################
+### 12. Ver Historial de Actividad del Ticket
+GET http://localhost:8002/tickets/1/history
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+
+
+########################################
+########### CASOS DE ERROR
+########################################
+
+
+### 13. Error: Acceso sin Token
+GET http://localhost:8002/tickets
+Content-Type: application/json
+
+
+### 14. Error: Token Inválido
+GET http://localhost:8002/tickets
+Authorization: Bearer token_falso_123
+Content-Type: application/json
+
+
+### 15. Error: Gestor Intentando Ver Todos los Tickets
+GET http://localhost:8002/tickets
+Authorization: Bearer {{token_gestor}}
+Content-Type: application/json
+
+
+### 16. Error: Gestor Intentando Cambiar Estado
+PUT http://localhost:8002/tickets/1/status
+Authorization: Bearer {{token_gestor}}
+Content-Type: application/json
+
+{
+  "estado": "cerrado"
+}
+
+
+### 17. Error: Crear Ticket Sin Título
+POST http://localhost:8002/tickets
+Authorization: Bearer {{token_gestor}}
+Content-Type: application/json
+
+{
+  "descripcion": "Solo descripción sin título"
+}
+
+
+### 18. Error: Estado Inválido
+PUT http://localhost:8002/tickets/1/status
+Authorization: Bearer {{token_admin}}
+Content-Type: application/json
+
+{
+  "estado": "estado_invalido"
+}

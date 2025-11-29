@@ -1,12 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-    const loginForm = document.getElementById("loginForm");
-    const regForm = document.getElementById("regForm");
-
-    if (loginForm) loginForm.addEventListener("submit", login);
-    if (regForm) regForm.addEventListener("submit", register);
-});
-
 async function login(e) {
     e.preventDefault();
 
@@ -17,12 +8,12 @@ async function login(e) {
 
     if (data.token) {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.user.role); // <-- IMPORTANTE, guarda rol
+        localStorage.setItem("user_id", data.user.id);
 
-        if (data.user.role === "gestor") {
-            window.location = "dashboard-gestor.html";
-        } else {
-            window.location = "dashboard-admin.html";
-        }
+        // Ahora todos van a la misma página
+        window.location = "usuarios.html";
+
     } else {
         alert("Credenciales incorrectas");
     }
@@ -31,19 +22,19 @@ async function login(e) {
 async function register(e) {
     e.preventDefault();
 
-    const data = {
+    const payload = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         password: document.getElementById("password").value
     };
 
-    const res = await api(`${API_USERS}/register`, "POST", data, false);
+    const data = await api(`${API_USERS}/register`, "POST", payload, false);
+
+    if (data.error) {
+        alert(data.error);
+        return;
+    }
 
     alert("Registro exitoso");
-    window.location = "login.html";
-}
-
-function logout() {
-    localStorage.removeItem("token");
     window.location = "login.html";
 }

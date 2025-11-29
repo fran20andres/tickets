@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Models\AuthToken;
+use App\Models\Token;
 
 class TokenService {
 
@@ -9,17 +9,17 @@ class TokenService {
 
         $token = bin2hex(random_bytes(32));
 
-        return AuthToken::create([
+        return Token::create([
             "user_id" => $userId,
             "token" => $token
         ]);
     }
 
     public static function invalidate($token) {
-        AuthToken::where("token", $token)->delete();
+        Token::where("token", $token)->delete();
     }
 
     public static function validate($token) {
-        return AuthToken::where("token", $token)->first();
+        return Token::where("token", $token)->first();
     }
 }

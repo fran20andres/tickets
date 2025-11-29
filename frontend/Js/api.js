@@ -1,6 +1,3 @@
-const API_USERS = "http://localhost:8001";
-const API_TICKETS = "http://localhost:8002";
-
 async function api(url, method = "GET", data = null, auth = true) {
     const headers = { "Content-Type": "application/json" };
 
@@ -11,15 +8,29 @@ async function api(url, method = "GET", data = null, auth = true) {
 
     const options = { method, headers };
 
+    // Body solo si hay data
     if (data) options.body = JSON.stringify(data);
 
-    const res = await fetch(url, options);
+    try {
+        const res = await fetch(url, options);
 
-    if (res.status === 401) {
-        localStorage.removeItem("token");
-        window.location = "login.html";
-        return;
+        // Manejo de 401
+        if (res.status === 401) {
+            localStorage.removeItem("token");
+            window.location = "login.html";
+            return;
+        }
+
+        // Intentar convertir a JSON
+        const text = await res.text();
+        try {
+            return JSON.parse(text);
+        } catch {
+            return { error: "Respuesta no es JSON", raw: text };
+        }
+
+    } catch (error) {
+        console.error("Error de conexión:", error);
+        return { error: "No se pudo conectar con el servidor" };
     }
-
-    return res.json();
 }
