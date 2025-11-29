@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ########################################
-### 2. Iniciar Sesión (Login)
+### 2. Iniciar Sesión Admin(Login)
 POST http://localhost:8001/login
 Content-Type: application/json
 
@@ -25,7 +25,15 @@ Content-Type: application/json
   "email": "admin1@example.com",
   "password": "password123"
 }
+########################################
+### 2.1. Iniciar Sesión Gestor (Login)
+POST http://localhost:8001/login
+Content-Type: application/json
 
+{
+  "email": "gestor2@example.com",
+  "password": "password123"
+} 
 ########################################
 # ⚠️ TOKEN SE AGREGA AUTOMÁTICAMENTE AQUÍ
 # Reemplázalo después de hacer login

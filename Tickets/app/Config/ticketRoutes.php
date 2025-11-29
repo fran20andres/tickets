@@ -1,8 +1,8 @@
 <?php
+
 use App\Controllers\TicketController;
 use App\Middleware\AuthMiddleware;
 
-// Tickets CRUD + asignación + comentarios
 $app->group("/tickets", function ($group) {
 
     $group->post("", [TicketController::class, "crearTicket"]);
