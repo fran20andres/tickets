@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Admin</title>
+    <link rel="stylesheet" href="Css/dashboard.css">
+</head>
+<body>
+
+<header>
+    <h2>Panel del Administrador</h2>
+    <button onclick="logout()">Cerrar Sesión</button>
+</header>
+
+<main>
+    <section>
+        <h3>Gestión de Usuarios</h3>
+        <div id="listaUsuarios"></div>
+    </section>
+
+    <section>
+        <h3>Gestión de Tickets</h3>
+        <div id="listaTickets"></div>
+    </section>
+</main>
+
+<script src="Js/api.js"></script>
+<script src="Js/auth.js"></script>
+<script src="Js/admin.js"></script>
+</body>
+</html>

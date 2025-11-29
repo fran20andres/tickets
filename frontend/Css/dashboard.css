@@ -1,0 +1,112 @@
+/* ============================
+   DASHBOARD GENERAL
+   ============================ */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f5f7;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background: #1e293b;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    padding-top: 20px;
+}
+
+.sidebar h3 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+}
+
+.sidebar a:hover {
+    background: #334155;
+    border-left: 4px solid #3b82f6;
+    color: white;
+}
+
+/* Content */
+.main-content {
+    margin-left: 240px;
+    padding: 20px;
+    width: calc(100% - 240px);
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.btn {
+    padding: 8px 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+/* Tabla */
+.table-container {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background: #e5e7eb;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border-bottom: 1px solid #dcdcdc;
+    text-align: left;
+}
+
+.table tr:hover {
+    background: #f3f4f6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+}

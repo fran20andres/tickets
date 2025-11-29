@@ -1,0 +1,96 @@
+########################################
+#      MICROSERVICIO DE USUARIOS
+#  Archivo de pruebas REST (.http)
+# Puerto correcto: 8001
+########################################
+
+########################################
+### 1. Registrar Nuevo Usuario
+POST http://localhost:8001/register
+Content-Type: application/json
+
+{
+  "name": "Gestor Nuevo",
+  "email": "gestornuevo@example.com",
+  "password": "password123",
+  "role": "gestor"
+}
+
+########################################
+### 2. Iniciar Sesión (Login)
+POST http://localhost:8001/login
+Content-Type: application/json
+
+{
+  "email": "admin1@example.com",
+  "password": "password123"
+}
+
+########################################
+# ⚠️ TOKEN SE AGREGA AUTOMÁTICAMENTE AQUÍ
+# Reemplázalo después de hacer login
+@token = PON_AQUI_TU_TOKEN
+########################################
+
+########################################
+### 3. Listar Todos los Usuarios (Solo Admins)
+GET http://localhost:8001/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+########################################
+### 4. Actualizar un Usuario (Solo Admins)
+PUT http://localhost:8001/users/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Juan Gestor Actualizado",
+  "email": "juan.updated@example.com",
+  "role": "gestor"
+}
+
+########################################
+### 5. Eliminar un Usuario (Solo Admins)
+DELETE http://localhost:8001/users/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+########################################
+### 6. Cerrar Sesión (Logout)
+POST http://localhost:8001/logout
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+########################################
+# ⚠️ CASOS DE ERROR
+########################################
+
+### 7. Error: Registro con Email Duplicado
+POST http://localhost:8001/register
+Content-Type: application/json
+
+{
+  "name": "Usuario Duplicado",
+  "email": "admin1@example.com",
+  "password": "password123",
+  "role": "gestor"
+}
+
+### 8. Error: Login con Credenciales Incorrectas
+POST http://localhost:8001/login
+Content-Type: application/json
+
+{
+  "email": "admin1@example.com",
+  "password": "password_incorrecto"
+}
+
+### 9. Error: Listar Usuarios Sin Token
+GET http://localhost:8001/users
+Content-Type: application/json
+
+### 10. Error: Token Inválido
+GET http://localhost:8001/users
+Authorization: Bearer token_invalido_123
+Content-Type: application/json

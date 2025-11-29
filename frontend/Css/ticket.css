@@ -1,0 +1,80 @@
+/* ============================
+   DETALLE DE TICKET
+   ============================ */
+
+.ticket-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    max-width: 850px;
+    margin: auto;
+}
+
+.ticket-box h2 {
+    margin-top: 0;
+}
+
+.ticket-info {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+.ticket-info p {
+    margin: 6px 0;
+}
+
+/* Comentarios */
+.comments {
+    margin-top: 25px;
+}
+
+.comment {
+    background: #f8fafc;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+}
+
+.comment small {
+    color: #64748b;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Formulario de comentario */
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+.comment-form button {
+    margin-top: 10px;
+    background: #2563eb;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background: #1d4ed8;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .ticket-box {
+        padding: 15px;
+    }
+
+    .comment {
+        padding: 10px;
+    }
+}
